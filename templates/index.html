@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mini CRM Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="banner">
+    <div class="banner-inner">
+      <div>
+        <h1>Leads</h1>
+        <p class="tagline">Every enquiry, from first hello to first sale.</p>
+      </div>
+      <button id="addButton" class="btn accent">Add lead</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- 1. Overview -->
+    <section class="stats">
+      <div class="stat"><span id="statTotal">0</span><p>Total leads</p></div>
+      <div class="stat"><span id="statNew">0</span><p>New</p></div>
+      <div class="stat"><span id="statConverted">0</span><p>Converted</p></div>
+    </section>
+
+    <!-- Conversion bar -->
+    <section class="conversion">
+      <div class="conversion-text">
+        <strong>Conversion rate</strong>
+        <span id="conversionRate">0%</span>
+      </div>
+      <div class="bar"><div class="bar-fill" id="conversionFill"></div></div>
+    </section>
+
+    <!-- 2. Search and filter -->
+    <section class="toolbar">
+      <input id="searchInput" type="search" placeholder="Search by name or email">
+      <select id="statusFilter">
+        <option value="">All statuses</option>
+        <option>New</option>
+        <option>Contacted</option>
+        <option>Converted</option>
+      </select>
+    </section>
+
+    <p id="message" class="message" role="status"></p>
+
+    <!-- 3. Leads table -->
+    <section class="table-wrap">
+      <table id="leadsTable">
+        <thead>
+          <tr>
+            <th>Name</th><th>Email</th><th>Phone</th><th>Business</th><th>Status</th><th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="leadsBody"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <!-- Add / Edit form -->
+  <dialog id="leadDialog">
+    <form id="leadForm" novalidate>
+      <h2 id="dialogTitle">Add lead</h2>
+
+      <label>Name
+        <input id="nameInput" type="text">
+        <small class="field-error" id="nameError"></small>
+      </label>
+      <label>Email
+        <input id="emailInput" type="email">
+        <small class="field-error" id="emailError"></small>
+      </label>
+      <label>Phone
+        <input id="phoneInput" type="tel">
+        <small class="field-error" id="phoneError"></small>
+      </label>
+      <label>Business name
+        <input id="businessInput" type="text">
+        <small class="field-error" id="businessError"></small>
+      </label>
+      <label>Status
+        <select id="statusInput">
+          <option>New</option>
+          <option>Contacted</option>
+          <option>Converted</option>
+        </select>
+      </label>
+
+      <p class="form-error" id="formError"></p>
+
+      <div class="dialog-buttons">
+        <button type="button" id="cancelButton" class="btn">Cancel</button>
+        <button type="submit" class="btn primary">Save lead</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
